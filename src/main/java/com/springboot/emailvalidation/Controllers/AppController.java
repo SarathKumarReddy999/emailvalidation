@@ -49,6 +49,7 @@ public class AppController {
         
     }
 
+    //sends flag in base64 encoded format
     @CrossOrigin(origins = "*")
     @GetMapping("/api/v1/getCountryFlag/{Country}")
     public ResponseEntity<Map<String, Object>> sendFlag(@PathVariable String Country) {
