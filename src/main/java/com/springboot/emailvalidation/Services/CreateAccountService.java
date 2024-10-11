@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.emailvalidation.DataModels.EmailAddress;
 import com.springboot.emailvalidation.Reposotories.EmailRepo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Service
 public class CreateAccountService {
+
+    private static final Logger logger = LogManager.getLogger(CreateAccountService.class);
 
     @Autowired
     EmailRepo emailRepo;
@@ -22,9 +26,11 @@ public class CreateAccountService {
         Map<String, Object> response = new HashMap<>();
         if(rowsEffected > 0) {
             response.put("status", "success");
+            logger.debug("Account created successful mail:{}", emailDetails.getMail());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             response.put("status", "failed");
+            logger.debug("Account creation failed mail:{}", emailDetails.getMail());
             return new ResponseEntity<>(response, HttpStatus.NOT_IMPLEMENTED);
         }
     }
@@ -34,9 +40,11 @@ public class CreateAccountService {
         Map<String, Object> response = new HashMap<>();
         if(rowsEffected > 0) {
             response.put("status", "success");
+            logger.debug("Password updated successfully mail:{}", emailAddress.getMail());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             response.put("status", "failed");
+            logger.debug("Password updation failed mail:{}", emailAddress.getMail());
             return new ResponseEntity<>(response, HttpStatus.NOT_IMPLEMENTED);
         }
     }
