@@ -23,24 +23,33 @@ configurations {
 repositories {
 	mavenCentral()
 }
+configurations.all {
+    // Exclude Logback globally
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
-	//exclude default logging of spring boot to use log4j 2 
-	implementation('org.springframework.boot:spring-boot-starter-logging') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Spring Boot Starters
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    
+    // Log4j 2 Starter
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Database Connector
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    
+    // Provided Runtime
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
